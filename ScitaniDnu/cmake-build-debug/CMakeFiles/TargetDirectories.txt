@@ -1,0 +1,3 @@
+C:/studenti/IT1/SvobodaS/ScitaniDnu/cmake-build-debug/CMakeFiles/ScitaniDnu.dir
+C:/studenti/IT1/SvobodaS/ScitaniDnu/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/studenti/IT1/SvobodaS/ScitaniDnu/cmake-build-debug/CMakeFiles/rebuild_cache.dir
