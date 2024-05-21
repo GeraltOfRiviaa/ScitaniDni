@@ -68,8 +68,8 @@ int denInput(int poradi, int max) {
 
 int konecDoZacRoku(int mesic, int rok, int dny){
     int output = 0;
-    for (mesic; mesic <= 12; ++mesic) {
-        output+= denMax(rok, mesic);
+    for (int m = mesic; m <= 12; m++) {
+        output+= denMax(rok, m);
     }
     return output - dny;
 }
@@ -78,21 +78,20 @@ int konecDoMesiceDruhehoRoku(int rok, int mesic, int den){
     for (int m = 1; m <= mesic; ++m) {
         output+= denMax(rok, m);
     }
-    return output - (denMax(rok, mesic) - den);
+    return output -  (denMax(rok, mesic) - den);
 
 }
 int mezidoba(int rok1, int rok2){
+    int prestupnychUbehloRok1 = rok1 / 400 + rok1 / 4 - rok1 / 100;
+    int prestupnychUbehloRok2 = rok2 / 400 + rok2 / 4 - rok2 / 100;
+
+    return (rok2-rok1) * 365 + (prestupnychUbehloRok2 - prestupnychUbehloRok1);
+
     int roky = rok2-rok1;
     int mezipocet = roky / 4;
     int zbyleroky = roky - mezipocet;
     int output = (zbyleroky * 365) + (mezipocet * 366);
     return output;
-    /*if(prestupnyRok(rok1) == 1){
-        return output - 366;
-    }
-    else {
-        return output - 365;
-    }*/
 }
 
 int main() {
@@ -104,12 +103,8 @@ int main() {
     int mesic2 = RokMesicInput(1,1, 12, "mesic");
     int den2 = denInput(1, denMax(rok2, mesic2));
 
-    int konecnyPocet = konecDoZacRoku(rok1, mesic1, den1) + konecDoMesiceDruhehoRoku(rok2, mesic2, den2) + mezidoba(rok1, rok2);
+    int konecnyPocet = konecDoZacRoku(rok1, mesic1, den1) + konecDoMesiceDruhehoRoku(rok2, mesic2, den2) + mezidoba(rok1, rok2) ;
 
-    printf("Do konce roku %d zbyva %d dni", rok1, konecDoZacRoku(mesic1, rok1,den1));
-    printf("\nKonecny den druheho roku je %d", konecDoMesiceDruhehoRoku(rok2, mesic2,den2));
-    printf("\nMezi roky %d a %d ubehlo %d dni (nepocitame prvni a posledni rok)", rok1, rok2, mezidoba(rok1, rok2));
     printf("\nMezi daty %2d.%2d.%4d a %2d.%2d.%4d ubehlo %d dni", den1, mesic1, rok1, den2, mesic2, rok2, konecnyPocet);
     return 0;
 }
-
