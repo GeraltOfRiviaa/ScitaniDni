@@ -95,7 +95,7 @@ int stejnyRokDny(int rok,int mesic1, int mesic2,int dny1, int dny2){
         output+= denMax(rok, m);
     }
     output - dny1;
-    return output - (denMax(rok, mesic2) - dny2);
+    return output + (denMax(rok, mesic2) - dny2);
 }
 
 int main() {
@@ -110,7 +110,7 @@ int main() {
     int konecnyPocet = 0;
 
     if (rok1 == rok2){
-    stejnyRokDny(rok1, mesic1,mesic2,den1,den2);
+    konecnyPocet=stejnyRokDny(rok1, mesic1,mesic2,den1,den2);
     }else{
         konecnyPocet = konecDoZacRoku(rok1, mesic1, den1) + konecDoMesiceDruhehoRoku(rok2, mesic2, den2) + mezidoba(rok1, rok2) ;
     }
