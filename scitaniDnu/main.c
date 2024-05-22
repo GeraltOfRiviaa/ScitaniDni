@@ -66,7 +66,7 @@ int denInput(int poradi, int max) {
     return output;
 }
 
-int konecDoZacRoku(int mesic, int rok, int dny){
+int konecDoZacRoku(int rok, int mesic, int dny){
     int output = 0;
     for (int m = mesic; m <= 12; m++) {
         output+= denMax(rok, m);
@@ -75,22 +75,18 @@ int konecDoZacRoku(int mesic, int rok, int dny){
 }
 int konecDoMesiceDruhehoRoku(int rok, int mesic, int den){
     int output = 0;
-    for (int m = 1; m <= mesic; ++m) {
+    for (int m = 1; m < mesic; ++m) {
         output+= denMax(rok, m);
     }
-    return output -  (denMax(rok, mesic) - den);
+    return output + den;
 
 }
 int mezidoba(int rok1, int rok2){
-    int prestupnychUbehloRok1 = rok1 / 400 + rok1 / 4 - rok1 / 100;
-    int prestupnychUbehloRok2 = rok2 / 400 + rok2 / 4 - rok2 / 100;
-
-    return (rok2-rok1) * 365 + (prestupnychUbehloRok2 - prestupnychUbehloRok1);
-
-    int roky = rok2-rok1;
-    int mezipocet = roky / 4;
-    int zbyleroky = roky - mezipocet;
-    int output = (zbyleroky * 365) + (mezipocet * 366);
+   int output =0;
+    for (int r = rok1 + 1; r < rok2;r++)
+    {
+        output += prestupnyRok(r)? 366 : 365;
+    }
     return output;
 }
 
