@@ -83,6 +83,7 @@ int konecDoMesiceDruhehoRoku(int rok, int mesic, int den){
 }
 int mezidoba(int rok1, int rok2){
     int output =0;
+
     for (int r = rok1 + 1; r < rok2;r++)
     {
         output += prestupnyRok(r)? 366 : 365;
@@ -91,31 +92,54 @@ int mezidoba(int rok1, int rok2){
 }
 int stejnyRokDny(int rok,int mesic1, int mesic2,int dny1, int dny2){
     int output = 0;
-    for(int m = mesic1; m < mesic2; m++){
+    for(int m = mesic1; m <= mesic2; m++){
         output+= denMax(rok, m);
     }
-    output - dny1;
-    return output + (denMax(rok, mesic2) - dny2);
+    output -= dny1;
+    return output - (denMax(rok, mesic2)-dny2);
 }
 
 int main() {
-    int rok1 = RokMesicInput(1,1800, 2100, "rok");
-    int mesic1 = RokMesicInput(1,1, 12, "mesic");
-    int den1 = denInput(1, denMax(rok1, mesic1));
+    int charCount;
+    int konecc = 1;
+    do {
 
-    int rok2= RokMesicInput(1,1800, 2100, "rok");
-    int mesic2 = RokMesicInput(1,1, 12, "mesic");
-    int den2 = denInput(1, denMax(rok2, mesic2));
-    
-    int konecnyPocet = 0;
+        int rok1 = RokMesicInput(1,1800, 2100, "rok");
+        int mesic1 = RokMesicInput(1,1, 12, "mesic");
+        int den1 = denInput(1, denMax(rok1, mesic1));
 
-    if (rok1 == rok2){
-    konecnyPocet=stejnyRokDny(rok1, mesic1,mesic2,den1,den2);
-    }else{
-        konecnyPocet = konecDoZacRoku(rok1, mesic1, den1) + konecDoMesiceDruhehoRoku(rok2, mesic2, den2) + mezidoba(rok1, rok2) ;
-    }
-    
+        int rok2= RokMesicInput(1,1800, 2100, "rok");
+        int mesic2 = RokMesicInput(1,1, 12, "mesic");
+        int den2 = denInput(1, denMax(rok2, mesic2));
 
-    printf("\nMezi daty %2d.%2d.%4d a %2d.%2d.%4d ubehlo %d dni", den1, mesic1, rok1, den2, mesic2, rok2, konecnyPocet);
+
+        int zamena = 0;
+        if(rok1 > rok2){
+            zamena=rok1;
+            rok1=rok2;
+            rok2 = zamena;
+        }
+
+            int konecnyPocet = 0;
+
+            if (rok1 == rok2){
+                konecnyPocet=stejnyRokDny(rok1, mesic1,mesic2,den1,den2);
+            }else{
+                konecnyPocet = konecDoZacRoku(rok1, mesic1, den1) + konecDoMesiceDruhehoRoku(rok2, mesic2, den2) + mezidoba(rok1, rok2) ;
+            }
+
+
+
+
+        printf("\nMezi daty %2d.%2d.%4d a %2d.%2d.%4d ubehlo %d dni", den1, mesic1, rok1, den2, mesic2, rok2, konecnyPocet);
+
+        printf("\nChcete zkusit kalendar znovu? (1 = ano): ");
+        scanf("%d", &konecc);
+        charCount = 0;
+        while (getchar() != '\n') {
+            charCount++;
+        }
+    }while(konecc == 1 && charCount == 0);
+
     return 0;
 }
